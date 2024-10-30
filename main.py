@@ -22,7 +22,7 @@ def _make_autoeval_summary(directory: str, elapsed_time: float) -> str:
 
     # Tasks
     if BENCHMARK == "openllm":
-        tasks = ["ARC", "HellaSwag", "MMLU", "TruthfulQA", "Winogrande", "GSM8K"]
+        tasks = ["GSM8K","ARC", "HellaSwag", "MMLU", "TruthfulQA", "Winogrande"]
     elif BENCHMARK == "nous":
         tasks = ["AGIEval", "GPT4All", "TruthfulQA", "Bigbench"]
     elif BENCHMARK == "eq-bench":
