@@ -93,6 +93,16 @@ elif [ "$BENCHMARK" == "openllm" ]; then
     pip install -e .
     pip install accelerate
 
+    benchmark="gsm8k"
+    echo "================== $(echo $benchmark | tr '[:lower:]' '[:upper:]') [6/6] =================="
+    accelerate launch -m lm_eval \
+        --model hf \
+        --model_args pretrained=${MODEL_ID},dtype=auto,trust_remote_code=$TRUST_REMOTE_CODE \
+        --tasks gsm8k \
+        --num_fewshot 5 \
+        --batch_size auto \
+        --output_path ./${benchmark}.json
+
     benchmark="arc"
     echo "================== $(echo $benchmark | tr '[:lower:]' '[:upper:]') [1/6] =================="
     accelerate launch -m lm_eval \
@@ -140,16 +150,6 @@ elif [ "$BENCHMARK" == "openllm" ]; then
         --model hf \
         --model_args pretrained=${MODEL_ID},dtype=auto,trust_remote_code=$TRUST_REMOTE_CODE \
         --tasks winogrande \
-        --num_fewshot 5 \
-        --batch_size auto \
-        --output_path ./${benchmark}.json
-    
-    benchmark="gsm8k"
-    echo "================== $(echo $benchmark | tr '[:lower:]' '[:upper:]') [6/6] =================="
-    accelerate launch -m lm_eval \
-        --model hf \
-        --model_args pretrained=${MODEL_ID},dtype=auto,trust_remote_code=$TRUST_REMOTE_CODE \
-        --tasks gsm8k \
         --num_fewshot 5 \
         --batch_size auto \
         --output_path ./${benchmark}.json
